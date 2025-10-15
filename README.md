@@ -2,12 +2,12 @@
 
 ## Supplemental Materials
 
-This repository contains the supplemental text, analyses, R code, and data for the manuscript entitled, *The Impact of Brief Mindfulness Training on Judgments of Confidence, Anxiety, and Difficulty While Answering Physics Questions*. The materials were created as a Quarto Book. You can browse the live web version of the materials [here](#).
+This repository contains the supplemental text, analyses, R code, and data for the manuscript entitled, *The Impact of Brief Mindfulness Training on Judgments of Confidence, Anxiety, and Difficulty While Answering Physics Questions*. The materials were created as a Quarto Book. You can browse the live web version of the materials [here](https://apelakh.github.io/pelakh-et-al-2025-supplement/).
 
 ### Project Links
 
-- Preprint on PsyArXiv
-- Live web version
+- Preprint on PsyArXiv (Coming soon)
+- [Live web version](https://apelakh.github.io/pelakh-et-al-2025-supplement/)
 
 #### OSF
 
