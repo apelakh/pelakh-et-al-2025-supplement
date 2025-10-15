@@ -1,0 +1,142 @@
+project:
+  type: book
+  execute-dir: project
+  preview: 
+    port: 4200
+    browser: true
+
+execute: 
+  freeze: auto
+  cache: true
+  warning: false
+
+book:
+  title: "The Impact of Brief Mindfulness Training on Judgments of Confidence, Anxiety, and Difficulty While Answering Physics Questions"
+  output-file: "Pelakh-et-al-supplement"
+  subtitle: "Supplementary Materials"
+  author: 
+    - name: "Avital Pelakh"
+      orcid: 0000-0003-1231-2442
+      corresponding: true
+      email: avp36@pitt.edu
+      affiliation: University of Pittsburgh
+    - name: "Eric Kuo"
+      affiliation: University of Illinois Urbana-Champaign
+    - name: "Melanie Good"
+      affiliation: University of Pittsburgh
+    - name: "Michael Tumminia"
+      affiliation: University of Pittsburgh
+    - name: "Sara Jahanian"
+      affiliation: University of Pittsburgh
+    - name: "Brian Galla"
+      affiliation: University of Pittsburgh
+    - name: "Timothy Nokes-Malach"
+      affiliation: University of Pittsburgh
+  date: today
+  abstract: |
+    We tested the impact of a mindfulness training intervention to improve introductory physics students’ experiences while answering physics questions. We expected the intervention to reduce physics threat and to increase students’ confidence while reducing anxiety and judgments of difficulty. We also tested whether domain-level physics threat mediated the effects of the intervention on task judgments and whether the effects differed by gender. To test these hypotheses one hundred and forty-nine undergraduates were randomly assigned to receive either a 5-day mindfulness training intervention or no training (control). Both groups answered physics questions before and directly after the intervention and rated their confidence, anxiety, and difficulty for each question. Mindfulness training led a greater increase in confidence and a reduction in anxiety among women and non-binary students, but not for men. The intervention also led to a reduction in judgments of difficulty for all students. The association between mindfulness training and self-reported anxiety among women and non-binary students was mediated by reductions in physics threat (measured mid-week using experience sampling). However, physics threat did not mediate any of the other mindfulness training outcomes for confidence or difficulty. The results are discussed in relation to a model of challenge and threat and mindfulness applications.  
+  downloads: pdf
+  chapters:
+    - index.qmd
+    - part: Supplementary Descriptive Text
+      chapters:
+      - chapters/01-changes-from-preregistration.qmd
+      - chapters/02-physics-tasks-descriptions.qmd
+      - chapters/03-physics-tasks-scoring.qmd
+      - chapters/04-clustering-variables.qmd
+    - part: R Code and Analyses
+      chapters: 
+      - chapters/05-data-setup.qmd
+      - chapters/06-variable-characteristics.qmd
+      - chapters/07-baseline-correlations.qmd
+      - chapters/08-research-question-1.qmd
+      - chapters/09-research-question-2.qmd
+      - chapters/10-accuracy-results.qmd
+    - references.qmd  
+      
+  sidebar:
+    title: "The Impact of Brief Mindfulness... [Supplementary Materials]"
+    style: "floating"
+    search: true
+    collapse-level: 2
+
+number-sections: true
+top-level-division: chapter
+bibliography: references.bib
+
+crossref: 
+  fig-prefix: "Supplementary Figure"
+  tbl-prefix: "Supplementary Table"
+  fig-title: "Supplementary Figure"
+  tbl-title: "Supplementary Table"
+  custom: 
+    - kind: float
+      key: suppfig
+      latex-env: suppfig
+      reference-prefix: Figure S
+      space-before-numbering: false
+      latex-list-of-description: Supplementary Figure
+      caption-location: top
+    - kind: float
+      key: supptbl
+      latex-env: supptbl
+      reference-prefix: Table S
+      space-before-numbering: false
+      latex-list-of-description: Supplementary Table
+      caption-location: top
+    
+
+format:
+  html:
+    theme: cosmo
+    css: css/styles.css
+    resources: 
+      - "img/"
+      - "R/"
+      - "data/"
+    toc: true
+    toc-location: right
+    toc-depth: 3
+    toc-expand: 2
+    number-depth: 2
+    lightbox: true
+    embed-resources: false
+    link-external-icon: true
+    link-external-newwindow: true
+    df-print: kable
+    tbl-cap-location: top
+    html-table-processing: none
+    fig-cap-location: top
+    knitr:
+      opts_chunk:
+        out.width: "100%"
+    code-fold: true
+    code-link: true
+    code-tools: true
+    code-summary: "Show/Hide Code"
+    code-overflow: wrap
+    default-image-extension: png
+  pdf:
+    documentclass: scrreprt
+    keep-tex: true
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    top-level-division: chapter
+    number-depth: 2
+    df-print: kable
+    fig-pos: "!hp"
+    html-table-processing: none
+    tbl-cap-location: top
+    fig-cap-location: top
+    # code-block-border-left: false
+    # code-block-bg: true
+    execute:
+      echo: false
+    # highlight-style: github
+    include-in-header: "header.tex"
+ 
+      
+
+
+

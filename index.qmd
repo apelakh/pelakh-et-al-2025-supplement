@@ -1,0 +1,15 @@
+# Preface {.unnumbered}
+
+::: {.content-visible when-format="pdf"}
+## Format Notes
+
+Due to formatting constraints, some portions of the web-based materials are not available in the PDF version (i.e., R code). Additionally, tables and images may appear out of order. We've done our best to provide reference links and documentation when this occurs. However, for the best experience, please refer to the web-based version of this Quarto book.
+:::
+
+
+## OSF Links
+
+-   [Project Home](https://osf.io/wv6xt/)
+-   [Project Overview](https://doi.org/10.17605/OSF.IO/7RXVC)
+-   [Materials](https://osf.io/fm8qx/)
+-   [Preregistration Plan](https://doi.org/10.17605/OSF.IO/SA9W2)

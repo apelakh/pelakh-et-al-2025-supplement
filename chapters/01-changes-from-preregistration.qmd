@@ -1,0 +1,23 @@
+# Changes From the Preregistration
+
+All changes below are in reference to **Preregistration 3 – Physics Task Outcomes** (<https://doi.org/10.17605/OSF.IO/SA9W2>).
+
+## Wording Adjustments
+
+The preregistration refers to the physics tasks as “problem solving.” We replaced this term with the phrase, “answering physics questions.” While all of our tasks assessed processes involved in problem solving (i.e., problem categorization and conceptual understanding), the term “problem solving” is more commonly used among physics teachers in reference to straightforward quantitative problems. Therefore, we decided that “answering physics questions” was a more accurate description of our tasks.
+
+## Model Specifications
+
+For RQ1, Hypotheses 1-3 in the main text: Instead of predicting outcomes at posttest while controlling for baseline (Hypotheses 4-6 in the preregistration), we used mixed-effects models that included *Timepoint* as a fixed effect, with baseline coded as 0 and posttest coded as 1. This allowed us to effectively test multiple hypotheses with fewer statistical models: baseline differences outlined in Preregistration, Aim 1, and effects of mindfulness training outlined in Preregistration, Aim 2. The advantage of this is that we were able to simultaneously reduce the likelihood of committing type 1 error (by running fewer individual tests) and lessen the burden on the reader. Both methods produced the same pattern of results (see Model 1 for each judgment type in @sec-preregistered for results using linear models as described in the preregistration).
+
+## Gender Moderation
+
+While we expected gender to be an important covariate, we did not preregister it as a moderator. Therefore, it is explicitly presented as exploratory in the main text. Results of the mixed-effects models without gender included as a moderator can be found here in @tbl-confidence-models, @tbl-anxiety-models, and @tbl-difficulty-models. Results of the mediation analyses without gender moderation can be found in @sec-preregistered. In both cases, the general pattern of results is the same. Including gender as a moderator helped bring our results into greater focus. For example, it revealed that overall effects of the intervention on judgments of confidence and anxiety were driven by women and non-binary students, while effects for judgements of difficulty were stable across genders.
+
+## Additional Control Variables
+
+We added several additional control variables to the models that were not included in the preregistration. First, unlike what is specified in the preregistration, we included baseline psychological threat as a predictor in all the models, whereas it is only included in Aim 1: H1-H2 in the preregistration (testing baseline associations). Because our final models simultaneously tested the hypotheses in Aim 1 (baseline associations) and Aim 2 (effects of mindfulness on outcomes at posttest), we included it to control for overall effects of pre-intervention levels of psychological threat. We also included item-level accuracy as a covariate in the models to rule out potential confounding effects on perceptions. Including these variables had no meaningful impact on the results, as shown in @tbl-confidence-models, @tbl-anxiety-models, and @tbl-difficulty-models.
+
+## Accuracy and Learning Outcomes
+
+Finally, the analyses of accuracy performance and preparation for future learning outcomes described in the preregistration are not included in the main text. We did not find any effects of mindfulness training on these outcomes (preregistered hypotheses 1, 4, and 5) or any mediation effects (preregistered hypotheses 7 and 8). Therefore, we chose to remove the details of these analyses from the main text to narrow the scope of the paper. Those results are reported in these materials in @tbl-accuracy-results and @tbl-pfl-results.

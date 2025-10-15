@@ -1,0 +1,183 @@
+# Physics Task Accuracy 
+
+The tables below show that there was no effect of mindfulness training on physics task accuracy (@tbl-accuracy-results) or learning on the PFL (@tbl-pfl-results).
+
+
+```{r}
+#| label: setup
+#| include: false
+
+source("R/setup-script.R")
+```
+
+## Model Specification
+
+```{r}
+#| label: model-spec
+#| message: false
+
+# Accuracy by problem solving task for parts 1-3
+
+data_accuracy <- data_rq1 %>%
+  filter(Part != "PFL") %>%
+  pivot_wider(
+    names_from = perception,
+    values_from = rating
+  ) %>%
+  group_by(
+    Participant,
+    Condition,
+    Gender,
+    Cohort,
+    Timepoint,
+    Semester_Week,
+    Test_Version,
+    Part,
+    Baseline_Threat,
+    EMA_Threat
+  ) %>%
+  summarise(Score = mean(Score), .groups = "drop")
+
+models_accuracy <- data_accuracy %>%
+  group_by(Part) %>%
+  nest %>%
+  mutate(
+    # Models with all covariates included
+    mod_full = map(
+      data,
+      ~ lmer(
+        Score ~
+          Cohort +
+            Semester_Week +
+            Test_Version +
+            Baseline_Threat +
+            Gender +
+            Timepoint * Condition +
+            (1 | Participant),
+        data = .x
+      )
+    ),
+    # Models with no covariates
+    mod_cov_removed = map(
+      data,
+      ~ lmer(
+        Score ~ Timepoint * Condition * Gender + (1 | Participant),
+        data = .x
+      )
+    ),
+    # Models with gender interaction
+    mod_gender_interact = map(
+      data,
+      ~ lmer(
+        Score ~
+          Cohort +
+            Semester_Week +
+            Test_Version +
+            Baseline_Threat +
+            Timepoint * Condition * Gender +
+            (1 | Participant),
+        data = .x
+      )
+    ),
+    # Empty means models (only random effects)
+    mod_empty_means = map(
+      data,
+      ~ lmer(
+        Score ~ (1 | Participant),
+        data = .x
+      )
+    ),
+    # Compare 2-way and 3-way interaction models
+    comparison = pmap(list(mod_full, mod_gender_interact), anova)
+  ) %>%
+  name_list_columns() # Name the list columns
+
+# Accuracy on the PFL Task
+
+data_pfl <- data_rq1 %>%
+  filter(Part == "PFL") %>%
+  pivot_wider(names_from = perception, values_from = rating) %>%
+  mutate(
+    Question = factor(Question - 10),
+    Score = factor(Score)
+  )
+
+model_pfl <- glmer(
+  Score ~
+    Cohort +
+      Semester_Week +
+      Baseline_Threat +
+      Gender +
+      Question * Condition +
+      (1 | Participant),
+  data = data_pfl,
+  family = "binomial",
+  control = glmerControl(optimizer = "bobyqa")
+)
+```
+
+## Preregistered Hypotheses 1 and 4
+
+```{r}
+#| label: tbl-accuracy-results
+#| tbl-cap: "Results from Mixed Effects Models Testing Preregistered Hypotheses 1 and 4: Effects of Mindfulness Training on Problem Solving Accuracy"
+# tab_model(
+#   models_accuracy$mod_full$Quantitative,
+#   models_accuracy$mod_full$Categorization,
+#   models_accuracy$mod_full$Qualitative,
+#   show.se = T,
+#   string.se = "SE",
+#   show.ci = F,
+#   dv.labels = c("Quantitative", "Categorization", "Qualitative") |>
+#     (\(x) paste0("Part", 1:3, ": ", x))()
+# )
+
+handle_model_print(
+  list(
+    models_accuracy$mod_full$Quantitative,
+    models_accuracy$mod_full$Categorization,
+    models_accuracy$mod_full$Qualitative
+  ),
+  c("Quantitative", "Categorization", "Qualitative") |>
+    (\(x) paste0("Part", 1:3, ": ", x))(),
+  n_models = 3,
+  is_lmer = TRUE,
+  raneff_rownum = 11
+)
+
+```
+
+::: {.callout-note}
+@tbl-accuracy-results: The estimates for the intercept represent the overall mean score (percent correct) and standard errors for each of the problem solving performance outcomes at baseline. The estimate for timepoint represents the change in the dependent variable from baseline to posttest across 
+:::
+
+## Preregistered Hypothesis 5
+
+```{r}
+#| label: tbl-pfl-results
+#| tbl-cap: "Results from Logistic Mixed Effects Model Testing Preregistered Hypothesis 5: Effects of Mindfulness Training on Learning During the Preparation for Future Learning Task"
+# tab_model(
+#   model_pfl,
+#   show.se = T,
+#   string.se = "SE",
+#   show.ci = F,
+#   dv.labels = "PFL Correctness"
+# )
+
+handle_model_print(
+  list(
+    model_pfl
+  ),
+  "PFL Correctness",
+  n_models = 1,
+  is_lmer = TRUE,
+  raneff_rownum = 10,
+  str_estimate = "Odds Ratios"
+)
+```
+
+
+::: {.callout-note}
+@tbl-pfl-results: The odds ratio for the intercept term represents the odds of getting question 1 correct compared to incorrect. The odds ratio for the question × condition interaction term represents the difference in odds of getting question 2 correct between conditions, above and beyond any condition differences on question 1 and overall differences on question 2, compared to question 1. P-values below .05 are indicated by bold font.
+:::
+

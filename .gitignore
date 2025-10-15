@@ -1,0 +1,26 @@
+
+# Quarto
+/.quarto/
+_site/
+*_cache/
+*_files/
+_freeze/
+preview_cache/
+site_libs/
+/_book/
+
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Generated files
+*.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/

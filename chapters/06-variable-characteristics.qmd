@@ -1,0 +1,131 @@
+# Characteristics of Fixed Effects Variables for Mixed Models
+
+```{r}
+#| label: setup
+#| include: false
+
+source("R/setup-script.R")
+```
+
+The following code reproduces the factor coding and descriptive statistics reported in Table 3 of the main text.
+
+## Dependent Variables
+
+```{r}
+#| label: dep-var
+#| output: asis
+
+for (p in str_perception_levels) {
+  cat(paste0("#### ", p, "\n\n"))
+
+  df <- data_rq1 %>%
+    filter(perception == p) %>%
+    group_by(Timepoint) %>%
+    get_summary_stats(rating, type = "common") %>%
+    mutate(across(c(mean, sd), ~ scales::number(.x, accuracy = .01)))
+
+  print(kable(df))
+
+  cat("\n")
+
+  rm(p, df)
+}
+```
+
+## Covariates
+
+### Cohort
+
+```{r}
+#| label: covariates
+data_rq1$Cohort %>%
+  contrasts() %>%
+  as_tibble(rownames = "Factor Levels") %>%
+  round_all_doubles()
+```
+
+### Semester Week
+
+```{r}
+#| label: semester-week
+data_rq1 %>%
+  select(Participant, Semester_Week) %>%
+  unique() %>%
+  get_summary_stats(Semester_Week, type = "common")
+```
+
+### Test Version
+
+```{r}
+#| label: test-version
+data_rq1$Test_Version %>%
+  contrasts() %>%
+  as_tibble(rownames = "Factor Levels") %>%
+  round_all_doubles()
+```
+
+### Item-Level Accuracy
+
+Factor Coding:
+
+```{r}
+#| label: accuracy-factor
+data_rq1$`Item-Level Accuracy` %>%
+  contrasts() %>%
+  as_tibble(rownames = "Factor Levels") %>%
+  round_all_doubles()
+```
+
+Baseline and Posttest Means and Standard Deviations:
+
+```{r}
+#| label: accuracy-num
+data_rq1 %>%
+  select(Participant, Timepoint, Item, Accuracy_Raw) %>%
+  unique() %>%
+  group_by(Timepoint) %>%
+  get_summary_stats(type = "common") %>%
+  mutate(across(c(mean, sd), ~ scales::number(.x, accuracy = .01)))
+```
+
+### Baseline Threat
+
+```{r}
+#| label: baseline-threat
+data_rq1 %>%
+  select(Participant, Baseline_Threat) %>%
+  unique() %>%
+  get_summary_stats(Baseline_Threat, type = "common")
+```
+
+## Main Independent Variables of Interest
+
+### Timepoint
+
+```{r}
+#| label: timepoint
+data_rq1$Timepoint %>%
+  contrasts() %>%
+  as_tibble(rownames = "Factor Levels")
+```
+
+### Condition
+
+```{r}
+#| label: condition
+data_rq1$Condition %>%
+  contrasts() %>%
+  as_tibble(rownames = "Factor Levels")
+```
+
+### Gender
+
+```{r}
+#| label: gender
+data_rq1$Gender %>%
+  contrasts() %>%
+  as_tibble(rownames = "Factor Levels") %>%
+  round_all_doubles()
+```
+
+

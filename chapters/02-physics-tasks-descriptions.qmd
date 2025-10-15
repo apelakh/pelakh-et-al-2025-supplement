@@ -1,0 +1,37 @@
+# Examples of Physics Task Items
+
+## Physics Tasks, Part 1: Quantitative Problem Solving
+
+Students were provided with a general equation sheet for reference and asked to solve a single quantitative problem. They were instructed to use a blank sheet of paper to write out their work and final answer. The quantitative problems were developed for this study by Drs. Melanie Good and Eric Kuo (See @fig-quant).
+
+![Sample Quantitative Physics Task Item](../img/sample-item-1.png){#fig-quant width="75%"}
+
+## Physics Tasks, Part 2: Problem Categorization
+
+This part consisted of five items adapted from, and similar to, those used in @hardiman1989. For each item, a model problem was presented along with two alternative problems. Students were instructed to select the alternative which is solved most like the model problem (deep structure match). Four out of five items contained surface feature distractors, meaning that there were surface features in the incorrect alternative which resembled the model problem (See @fig-cat).
+
+![Sample Categorization Physics Task Item](../img/sample-item-2.png){#fig-cat width="75%"}
+
+::: {.callout-note}
+@fig-cat: At first glance, the model problem and alternative 2 appear similar because they both involve projectiles, but this similarity is a surface-level distractor. The model problem and alternative 1 are asking for final velocity and can be solved using conservation of energy, while alternative 2 requires the use of kinematics to solve for time. Therefore, the correct response is alternative 1.
+:::
+
+## Physics Tasks, Part 3: Conceptual Questions (Qualitative Problem Solving)
+
+This part consisted of three multiple-choice questions (See @fig-qual-1), followed by one open-ended problem (See @fig-qual-2). For each multiple-choice question, participants were also asked to provide a brief explanation for their choice. The open-ended problem was a word problem in which participants were asked to explain a solution.
+
+::: {layout-ncol="2"}
+![Multiple-Choice Item](../img/sample-item-3.png){#fig-qual-1}
+
+![Open-Ended Item](../img/sample-item-4.png){#fig-qual-2}
+:::
+
+::: {.callout-note}
+@fig-qual-1: Qualitative multiple-choice item: The correct answer is option A because the frictional force is proportional to the normal force, which is equal to the weight force. Therefore, the only way to increase the frictional force is to increase the mass; @fig-qual-2: Qualitative open response item: Newton’s second law states that $F_{net}=\frac{Δp}{Δt}$. Airbags reduce the force (outcome) of a collision by increasing the time it takes for the collision to occur (mechanism). Half credit was given to responses that mentioned either force or time correctly, and full credit was given to responses that mentioned both force and time.
+:::
+
+## Physics Tasks, Part 4: Preparation for Future Learning
+
+The Preparation for Future Learning (PFL) task [@belenky2012; @schwartz2004inventing] is a 3-part learning activity that participants completed only at posttest. Physics problems used in the learning activity were taken from @weinlader2019. The first part consisted of solving a difficult multiple-choice problem which required comparing the trajectories of two projectiles and predicting which would hit their target first (see @fig-pfl). In the second part, a learning resource explaining the first problem was provided. The resource contained an explanation of why the correct answer choice was valid, and why each incorrect answer was not. The third part consisted of a novel problem with similar surface features to the first problem but had a different correct response. Answering correctly required applying the underlying principles of the first problem to a different set of conditions. Each of the two problems required both a multiple-choice answer as well as a short-answer explanation for the selected choice.
+
+![Sample Preparation for Future Learning Task Item](../img/sample-item-5.png){#fig-pfl width="75%"}

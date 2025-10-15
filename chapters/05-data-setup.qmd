@@ -1,0 +1,108 @@
+# Data and Environment Setup
+
+## Source Setup Script
+
+In order to run the code included in this book, you first need to run "/R/setup-script.R" to install/load required packages and read the data. The data are located in "/data/preregistration_3_data_public.csv". 
+
+```{r}
+#| label: setup
+#| message: false
+#| code-fold: show
+source("R/setup-script.R")
+```
+
+## Session Info
+
+```{r}
+#| label: session-info
+sessionInfo()
+```
+
+## Datasets
+
+The analyses in the main text are run using two forms of the data, one for each research question / analysis type. Summaries of the data charactaristics are described below.
+
+### RQ1 Data 
+
+These data are in long format - (22 items x 149 participants - 3 NA values) x 3 judgments per item = 9825 observations.
+
+::: {.callout-note}
+the variable `perception` is equivalent to "judgment" in the manuscript.
+:::
+
+```{r}
+#| label: rq1-data
+data_rq1 |> glimpse()
+```
+
+#### Participant-Level Variables
+
+```{r}
+#| label: rq1-participants
+#| fig-pos: h
+rq1_participants <- data_rq1 |>
+  select(
+    Participant,
+    Condition,
+    Gender,
+    Cohort,
+    Semester_Week,
+    Baseline_Threat
+  ) |>
+  unique()
+
+rq1_participants |>
+  select(-where(is.numeric)) |>
+  summary()
+
+
+rq1_participants |>
+  get_summary_stats(show = c("min", "max", "mean", "sd"))
+```
+
+#### Item (Observation)-Level Variables
+
+::: {.callout-note}
+`Score` includes values between 0 and 1 since 4 of the items (A01, B01, A10, and B10) were open-ended and could be awarded partial credit. `Item-Level Accuracy` (factor version) and `Accuracy_Raw` (numeric version) were derived from `Score` to compare incorrect responses to those that were at least partially correct (`Score` > 0).
+:::
+
+```{r}
+#| label: rq1-items
+data_rq1 |>
+  select(
+    Item,
+    Timepoint,
+    Test_Version,
+    `Item-Level Accuracy`,
+    perception
+  ) |>
+  summary()
+
+data_rq1 |>
+  select(
+    Score,
+    Accuracy_Raw,
+    rating
+  ) |>
+  get_summary_stats(show = c("min", "max", "mean", "sd"))
+```
+
+### RQ2 Data
+
+Data are in wide format, so everything varies at the participant level. Judgment ratings and accuracy scores are averaged at baseline and posttest. Continuous variables are standardized and numeric dummy variables with contrast coding are created for `Cohort` because the `mediation` package does not accept factors with contrast coding, but this has no bearing on the results. One participant's data was removed because they did not complete any EMA surveys.
+
+```{r}
+#| label: rq2-data
+data_rq2 |> glimpse()
+
+data_rq2 |>
+  mutate(across(Baseline_Test_Version, factor)) |>
+  purrr::discard(is.numeric) |>
+  summary()
+
+data_rq2 |>
+  get_summary_stats(show = c("min", "max", "mean", "sd"))
+```
+
+
+

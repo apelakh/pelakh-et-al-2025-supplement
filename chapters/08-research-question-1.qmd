@@ -1,0 +1,342 @@
+# Research Question 1
+
+```{r}
+#| label: setup
+#| include: false
+
+source("R/setup-script.R")
+```
+
+## Model Specification
+
+:::{.content-visible when-format="pdf"}
+Code for model specification not available in PDF format.
+:::
+
+```{r}
+#| label: model-spec
+#| cache: true
+#| message: false
+models_rq1 <- data_rq1 %>%
+  group_by(perception) %>%
+  nest %>%
+  mutate(
+    # Models with all covariates included
+    mod_full = map(
+      data,
+      ~ lmer(
+        rating ~
+          Cohort +
+            Semester_Week +
+            Test_Version +
+            `Item-Level Accuracy` +
+            Baseline_Threat +
+            Gender +
+            Timepoint * Condition +
+            (1 | Participant) +
+            (1 | Item),
+        data = .x
+      )
+    ),
+    # Models with no covariates
+    mod_cov_removed = map(
+      data,
+      ~ lmer(
+        rating ~
+          Cohort +
+            Semester_Week +
+            Test_Version +
+            Gender +
+            Timepoint * Condition +
+            (1 | Participant) +
+            (1 | Item),
+        data = .x
+      )
+    ),
+    # Models with gender interaction
+    mod_gender_interact = map(
+      data,
+      ~ lmer(
+        rating ~
+          Cohort +
+            Semester_Week +
+            Test_Version +
+            `Item-Level Accuracy` +
+            Baseline_Threat +
+            Timepoint * Condition * Gender +
+            (1 | Participant) +
+            (1 | Item),
+        data = .x
+      )
+    ),
+    # Empty means models (only random effects)
+    mod_empty_means = map(
+      data,
+      ~ lmer(
+        rating ~
+          (1 | Participant) +
+            (1 | Item),
+        data = .x
+      )
+    ),
+    # Compare 2-way and 3-way interaction models
+    comparison = pmap(list(mod_full, mod_gender_interact), anova)
+  ) %>%
+  name_list_columns() # Name the list columns
+
+# Data with model-predicted outcome values
+predicted_values <- data_rq1 %>%
+  group_by(perception) %>%
+  nest() %>%
+  mutate(
+    predicted = case_match(
+      perception,
+      "Confidence" ~
+        map(
+          data,
+          ~ predict(
+            models_rq1$mod_gender_interact$Confidence,
+            newdata = .x,
+            se.fit = TRUE
+          ) %>%
+            as_tibble()
+        ),
+      "Anxiety" ~
+        map(
+          data,
+          ~ predict(
+            models_rq1$mod_gender_interact$Anxiety,
+            newdata = .x,
+            se.fit = TRUE
+          ) %>%
+            as_tibble()
+        ),
+      "Difficulty" ~
+        map(
+          data,
+          ~ predict(
+            models_rq1$mod_full$Difficulty,
+            newdata = .x,
+            se.fit = TRUE
+          ) %>%
+            as_tibble()
+        )
+    )
+  ) %>%
+  unnest(c(data, predicted))
+```
+
+## Reproduction of Table 4
+
+::: {.content-visible when-format="pdf"}
+See @tbl-main-tbl-4
+:::
+
+```{r}
+#| label: tbl-main-tbl-4
+#| tbl-cap: "Results from Mixed Effects Models Testing Hypotheses 1-3: Effects of Mindfulness Training on Item-Level Judgments While Answering Physics Questions"
+
+handle_model_print(
+  list(
+    models_rq1$mod_gender_interact$Confidence,
+    models_rq1$mod_gender_interact$Anxiety,
+    models_rq1$mod_full$Difficulty
+  ),
+  str_perception_levels |>
+    (\(x) paste0("H", 1:3, ": ", x))(),
+  n_models = 3,
+  is_lmer = TRUE,
+  raneff_rownum = 15
+)
+
+
+```
+
+
+## Confidence Judgments: Model Comparison
+
+::: {.content-visible when-format="pdf"}
+See @tbl-confidence-models
+:::
+
+```{r}
+#| label: tbl-confidence-models
+#| tbl-cap: "Comparison of Models Predicting Confidence Judgments"
+
+handle_model_print(
+  list(
+    models_rq1$mod_cov_removed$Confidence,
+    models_rq1$mod_full$Confidence,
+    models_rq1$mod_gender_interact$Confidence
+  ),
+  c(
+    "Accuracy and Baseline Threat Removed",
+    "2-Way Interaction",
+    "3-Way Interaction"
+  ),
+  n_models = 3,
+  is_lmer = TRUE,
+  raneff_rownum = 15
+)
+```
+
+
+
+
+## Anxiety Judgments: Model Comparison
+
+::: {.content-visible when-format="pdf"}
+See @tbl-anxiety-models
+:::
+
+```{r}
+#| label: tbl-anxiety-models
+#| tbl-cap: "Comparison of Models Predicting Anxiety Judgments"
+handle_model_print(
+  list(
+    models_rq1$mod_cov_removed$Anxiety,
+    models_rq1$mod_full$Anxiety,
+    models_rq1$mod_gender_interact$Anxiety
+  ),
+  c(
+    "Accuracy and Baseline Threat Removed",
+    "2-Way Interaction",
+    "3-Way Interaction"
+  ),
+  n_models = 3,
+  is_lmer = TRUE,
+  raneff_rownum = 15
+)
+```
+
+
+
+
+## Difficulty Judgments: Model Comparison
+
+::: {.content-visible when-format="pdf"}
+See @tbl-difficulty-models
+:::
+
+```{r}
+#| label: tbl-difficulty-models
+#| tbl-cap: "Comparison of Models Predicting Difficulty Judgments"
+handle_model_print(
+  list(
+    models_rq1$mod_cov_removed$Difficulty,
+    models_rq1$mod_full$Difficulty,
+    models_rq1$mod_gender_interact$Difficulty
+  ),
+  c(
+    "Accuracy and Baseline Threat Removed",
+    "2-Way Interaction",
+    "3-Way Interaction"
+  ),
+  n_models = 3,
+  is_lmer = TRUE,
+  raneff_rownum = 15
+)
+```
+
+
+
+## Reproduction of Figure 4
+
+::: {.content-visible when-format="pdf"}
+See @fig-main-fig-4
+:::
+
+```{r}
+#| label: fig-main-fig-4
+#| fig-cap: "Participants' Mean Judgment Ratings at Baseline and Posttest by Experimental Condition and Gender"
+#| fig-asp: 1
+data_rq1 %>%
+  group_by(Participant, Gender, perception, Timepoint, Condition) %>%
+  summarise(rating = mean(rating), .groups = "drop") %>%
+  mutate(
+    perception = factor(
+      perception,
+      levels = c("Confidence", "Anxiety", "Difficulty")
+    )
+  ) %>%
+  ggplot(aes(Timepoint, rating, group = Condition, color = Condition)) +
+  facet_grid(perception ~ Gender, margins = "Gender") +
+  stat_summary(geom = "line", fun = "mean") +
+  stat_summary(geom = "errorbar", fun.data = "mean_se", width = .2) +
+  stat_summary(geom = "point", fun = "mean") +
+  scale_y_continuous(breaks = 1:6, limits = c(1, 6)) +
+  scale_x_discrete(expand = expansion(mult = .3)) +
+  scale_color_manual(values = c(color_cntrl, color_mindful)) +
+  labs(x = NULL, y = "Mean Rating (Raw Data)") +
+  theme(
+    legend.position = "right",
+    plot.background = element_rect(fill = 'transparent'),
+    # aspect.ratio = 1,
+    legend.background = element_rect(fill = 'transparent'),
+    legend.key = element_rect(
+      fill = 'white',
+      linewidth = .2,
+      linetype = 'solid',
+      color = color_cntrl
+    )
+  )
+```
+
+
+
+## Reproduction of Figure 5 
+
+::: {.content-visible when-format="pdf"}
+See @fig-main-fig-5
+:::
+
+```{r}
+#| label: fig-main-fig-5
+#| fig-cap: "Estimated Marginal Means for Effects of Main Variables of Interest"
+predicted_values %>%
+  # Calculate the mean fit for each participant at baseline and posttest
+  group_by(Participant, perception, Gender, Condition, Timepoint) %>%
+  summarise(fit = mean(fit), .groups = "drop") %>%
+  # group by gender, condition and perform a paired t test with equal variance assumed
+  group_by(perception, Gender, Condition) %>%
+  t_test(
+    formula = fit ~ Timepoint,
+    paired = TRUE,
+    var.equal = TRUE,
+    detailed = TRUE,
+    ref.group = "Posttest"
+  ) %>%
+  # Convert 95% confidence intervals to SE
+  mutate(se = (conf.high - conf.low) / 3.92, .after = estimate) %>%
+  # Reorder perception variables to match text
+  mutate(perception = fct_relevel(perception, "Confidence")) %>%
+  ggplot(mapping = aes(x = Gender, y = estimate)) +
+  facet_wrap(~perception) +
+  labs(y = "Estimated Change from Baseline to Posttest") +
+  geom_col(
+    position = "dodge",
+    mapping = aes(fill = Condition)
+  ) +
+  geom_errorbar(
+    mapping = aes(ymin = conf.low, ymax = conf.high, group = Condition),
+    position = position_dodge(.9),
+    width = .2
+  ) +
+  geom_text(
+    mapping = aes(
+      label = round(estimate, 2),
+      y = ifelse(estimate < 0, conf.low - .03, conf.high + .03),
+      group = Condition
+    ),
+    size = 3,
+    position = position_dodge(.9)
+  ) +
+  geom_hline(
+    yintercept = 0
+  ) +
+  scale_x_discrete(labels = c("Men", "Women/NB")) +
+  scale_fill_manual(values = c(color_cntrl, color_mindful))
+```
+
+
+
