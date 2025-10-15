@@ -1,0 +1,16 @@
+.hidden {
+    display: none;
+}
+
+.callout {
+  text-align: left !important;
+}
+
+/* Figure/Table Captions */
+figcaption {
+    font-weight: bold;
+    font-size: 1.1;
+    text-align: left !important;
+    margin-bottom: 6pt;
+    line-height: 1.2;
+}
