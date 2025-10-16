@@ -36,6 +36,9 @@ book:
   abstract: |
     We tested the impact of a mindfulness training intervention to improve introductory physics students’ experiences while answering physics questions. We expected the intervention to reduce physics threat and to increase students’ confidence while reducing anxiety and judgments of difficulty. We also tested whether domain-level physics threat mediated the effects of the intervention on task judgments and whether the effects differed by gender. To test these hypotheses one hundred and forty-nine undergraduates were randomly assigned to receive either a 5-day mindfulness training intervention or no training (control). Both groups answered physics questions before and directly after the intervention and rated their confidence, anxiety, and difficulty for each question. Mindfulness training led a greater increase in confidence and a reduction in anxiety among women and non-binary students, but not for men. The intervention also led to a reduction in judgments of difficulty for all students. The association between mindfulness training and self-reported anxiety among women and non-binary students was mediated by reductions in physics threat (measured mid-week using experience sampling). However, physics threat did not mediate any of the other mindfulness training outcomes for confidence or difficulty. The results are discussed in relation to a model of challenge and threat and mindfulness applications.  
   downloads: pdf
+  doi: https://doi.org/10.5281/zenodo.17371388
+  site-url: https://apelakh.github.io/pelakh-et-al-2025-supplement/
+  repo-url: https://github.com/apelakh/pelakh-et-al-2025-supplement/tree/article-supplement
   chapters:
     - index.qmd
     - part: Supplementary Descriptive Text
