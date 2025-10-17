@@ -11,6 +11,7 @@ site_libs/
 
 # R
 .Rproj.user/
+*.Rproj
 .Rhistory
 .RData
 .Ruserdata
