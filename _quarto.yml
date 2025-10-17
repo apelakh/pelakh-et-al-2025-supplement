@@ -38,7 +38,7 @@ book:
   downloads: pdf
   doi: https://doi.org/10.5281/zenodo.17371388
   site-url: https://apelakh.github.io/pelakh-et-al-2025-supplement/
-  repo-url: https://github.com/apelakh/pelakh-et-al-2025-supplement/tree/article-supplement
+  repo-url: https://github.com/apelakh/pelakh-et-al-2025-supplement
   chapters:
     - index.qmd
     - part: Supplementary Descriptive Text
