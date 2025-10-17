@@ -6,7 +6,7 @@ This repository contains the supplemental text, analyses, R code, and data for t
 
 ### Project Links
 
-- Preprint on PsyArXiv (DOI Pending)
+- [Preprint on PsyArXiv](https://github.com/apelakh/pelakh-et-al-2025-supplement)
 - [Live web version of this repository](https://apelakh.github.io/pelakh-et-al-2025-supplement/)
 
 #### OSF
