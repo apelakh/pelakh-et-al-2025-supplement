@@ -13,3 +13,4 @@ Due to formatting constraints, some portions of the web-based materials are not 
 -   [Project Overview](https://doi.org/10.17605/OSF.IO/7RXVC)
 -   [Preregistration Plan](https://doi.org/10.17605/OSF.IO/SA9W2)
 -   [Physics Task Materials](https://osf.io/fm8qx/)
+-   [Manuscript Preprint (PsyArXiv)](https://doi.org/10.31234/osf.io/sqpd5_v1)

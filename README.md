@@ -6,7 +6,6 @@ This repository contains the supplemental text, analyses, R code, and data for t
 
 ### Project Links
 
-- [Preprint on PsyArXiv](https://github.com/apelakh/pelakh-et-al-2025-supplement)
 - [Live web version of this repository](https://apelakh.github.io/pelakh-et-al-2025-supplement/)
 
 #### OSF
@@ -15,3 +14,4 @@ This repository contains the supplemental text, analyses, R code, and data for t
 -   [Project Overview](https://doi.org/10.17605/OSF.IO/7RXVC)
 -   [Preregistration Plan](https://doi.org/10.17605/OSF.IO/SA9W2)
 -   [Physics Task Materials](https://osf.io/fm8qx/)
+-   [Manuscript Preprint (PsyArXiv)](https://doi.org/10.31234/osf.io/sqpd5_v1)
